@@ -1,0 +1,5 @@
+debian/*firmware*
+debian/*debhelper*
+debian/files
+debian/compat
+*.log

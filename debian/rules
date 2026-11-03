@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	mkdir -p debian/robopi-firmware/lib/firmware
+	for f in *; do \
+		if [ "$$f" != "debian" ] && [ "$$f" != ".git" ] && [ "$$f" != ".github" ] && [ "$$f" != "build.log" ] && [ "$$f" != "README.md" ]; then \
+			cp -r "$$f" debian/robopi-firmware/lib/firmware/; \
+		fi; \
+	done
+
+override_dh_strip:
+	@echo "skipping dh_strip"
+
+override_dh_fixperms:
+	@echo "skipping dh_fixperms"
