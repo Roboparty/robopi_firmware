@@ -36,21 +36,21 @@ jobs:
 
     - name: Build Debian package
       run: |
-        dpkg-buildpackage -us -uc -b
+        dpkg-buildpackage -us -uc -b -a arm64
 
         DEBIAN_VERSION=$(dpkg-parsechangelog -S Version)
         VERSION=${DEBIAN_VERSION%%-*}
-        mv "../robopi-firmware_${DEBIAN_VERSION}_all.deb" .
+        mv "../robopi-firmware_${DEBIAN_VERSION}_arm64.deb" .
 
         echo "PKG_VERSION=$VERSION" >> "$GITHUB_ENV"
-        ls -l robopi-firmware_*_all.deb
+        ls -l robopi-firmware_*_arm64.deb
 
     - name: Verify package contents
       run: |
         set -eu
-        deb=$(find . -maxdepth 1 -name 'robopi-firmware_*_all.deb' -print -quit)
+        deb=$(find . -maxdepth 1 -name 'robopi-firmware_*_arm64.deb' -print -quit)
         test -n "$deb"
-        test "$(dpkg-deb -f "$deb" Architecture)" = "all"
+        test "$(dpkg-deb -f "$deb" Architecture)" = "arm64"
         for fw in \
           lib/firmware/mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin \
           lib/firmware/mediatek/WIFI_RAM_CODE_MT7922_1.bin \
@@ -63,13 +63,13 @@ jobs:
     - name: Upload Debian package
       uses: actions/upload-artifact@v4
       with:
-        name: robopi-firmware-v${{ env.PKG_VERSION }}-all
+        name: robopi-firmware-v${{ env.PKG_VERSION }}-arm64
         path: |
-          robopi-firmware_*_all.deb
+          robopi-firmware_*_arm64.deb
 
     - name: Upload to GitHub Release
       if: startsWith(github.ref, 'refs/tags/v')
       uses: softprops/action-gh-release@v2
       with:
         files: |
-          robopi-firmware_*_all.deb
+          robopi-firmware_*_arm64.deb
