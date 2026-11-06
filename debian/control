@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/Roboparty/robopi_firmware.git
 Vcs-Browser: https://github.com/Roboparty/robopi_firmware
 
 Package: robopi-firmware
-Architecture: all
+Architecture: arm64
 Depends: ${misc:Depends}
 Description: MediaTek MT7922 / MT7663 / MT7668 firmware
  MediaTek WiFi and Bluetooth firmware for mt7921e, btmtk and mt76.

@@ -1,3 +1,10 @@
+robopi-firmware (1.2.10-1) stable; urgency=medium
+
+  * Build as arm64 and install on all arm64 boards; x86 has no target
+    MediaTek devices.
+
+ -- wentywenty <2321901849@qq.com>  Fri, 06 Nov 2026 21:00:00 +0800
+
 robopi-firmware (1.2.9-1) stable; urgency=medium
 
   * Ship only MediaTek MT7922 / MT7663 / MT7668 firmware.
